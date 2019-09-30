@@ -1,0 +1,28 @@
+/** Start: Pagination styles **/
+.pagination {
+    display: inline-block;
+  }
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 4px 8px;
+    text-decoration: none;
+    font-weight: normal;
+  }
+  .pagination strong {
+    color: black;
+    float: left;
+    padding: 4px 8px;
+    text-decoration: none;
+  }
+  .pagination strong {
+    background-color: #212529;
+    color: white;
+  }
+  .pagination a:hover { 
+    background-color: #e9ecef;
+  }
+  /** End: Pagination styles **/
+  .icon_color {
+    color: #212529;
+  }
