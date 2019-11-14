@@ -25,11 +25,9 @@
       <table class="table table-bordered" cellspacing="0">
         <thead>
           <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>User Name</th>
-            <th>Email</th>
+            <?php foreach($sort_cols as $field_name => $field_display): ?>
+                <th><?php echo anchor('admin/users/index/'.$field_name.'/'.($sort_by == $field_name ? $sort_order : 'asc').'/'.$page, $field_display); ?></th>
+            <?php endforeach; ?>
             <th>Action</th>
           </tr>
         </thead>

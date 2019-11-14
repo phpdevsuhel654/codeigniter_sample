@@ -22,13 +22,33 @@ Class users extends CI_Controller {
         $config = array();
         $config["base_url"] = base_url() . "admin/users/index";
         $config["total_rows"] = $this->user_model->record_count();
-        $config["per_page"] = 5;
-        $config["uri_segment"] = 4;
+        $config["per_page"] = 2;
+        
+        $data['sort_cols'] = array(
+            'id' => '#',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'username' => 'User Name',
+            'email' => 'Email'
+        );
+
+        $config["uri_segment"] = 6;
+        $data['sort_by'] = $this->uri->segment(4, 'id');
+        $order_by = $this->uri->segment(5, "desc");
+        if($order_by == "asc") $data['sort_order'] = "desc"; else $data['sort_order'] = "asc";
+
+        $config["base_url"] = base_url().'admin/users/index/'.$data['sort_by'].'/'.$order_by.'/';
+
+        $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 0; //echo $page;
+        $data["page"] = $page;
+
         //echo '<pre>'; print_r($config); echo '</pre>';
         $this->pagination->initialize($config);
         
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0; //echo $page;
-        $data["results"] = $this->user_model->get_where_pagination($config["per_page"], $page);
+        
+        //$data["results"] = $this->user_model->get_where_pagination($config["per_page"], $page);
+        $data["results"] = $this->user_model->get_where_pagination_full($config["per_page"], $page, $data['sort_by'], $data['sort_order']);
+
         $data["links"] = $this->pagination->create_links();
         //echo '<pre>'; print_r($data); exit();
 

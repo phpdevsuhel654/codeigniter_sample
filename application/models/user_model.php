@@ -26,4 +26,24 @@ Class user_model extends MY_Model {
         return $user_count;
     }
 
+    /**
+     * get records with pagination
+     */
+    public function get_where_pagination_full($limit, $start, $sort_field, $order_by, $where='') {
+        if(!empty($where)) {
+            $this->db->where($where);
+        }
+        $this->db->order_by("$sort_field", "$order_by");
+        $this->db->limit($limit, $start);
+        $query = $this->db->get($this->table);
+        //echo '<pre>'; print_r($this->db->last_query()); echo '</pre>'; //exit();
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+   }
+
 }
