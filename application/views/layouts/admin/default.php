@@ -19,7 +19,7 @@
     <?php echo link_tag('assests/vendor/datatables/dataTables.bootstrap4.css'); ?>
     <!-- Include stylesheet -->
     <?php /* ?><?php echo link_tag('assests/css/quill/quill.snow.css'); ?><?php */ ?>
-
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <?php echo link_tag('assests/css/sb-admin.css'); ?>

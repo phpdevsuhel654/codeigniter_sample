@@ -22,11 +22,42 @@
       <?php if ($this->session->flashdata('failure')) { ?>
         <div class="alert alert-danger"><strong>Success!</strong> <?php echo $this->session->flashdata('failure'); ?></div>
       <?php } ?>
+      <!-- Start: Filter block -->
+      <div class="row pb-3">
+        <form class="form-search" method="post" action="<?php echo $form_url; ?>">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="ace-icon fa fa-check"></i>
+            </span>
+            <input type="text" class="form-control search-query" placeholder="Type your search word" name="search" id="search" value="<?php echo (!empty($search_string)?$search_string:"");?>">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-purple btn-sm btn-search">
+                <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                Search
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
+      
+      <!-- End: Filter block -->
       <table class="table table-bordered" cellspacing="0">
         <thead>
           <tr>
             <?php foreach($sort_cols as $field_name => $field_display): ?>
-                <th><?php echo anchor('admin/users/index/'.$field_name.'/'.($sort_by == $field_name ? $sort_order : 'asc').'/'.$page, $field_display); ?></th>
+                <th>
+                  <?php
+                    $cur_field_sort_order = ($sort_by == $field_name ? $sort_order : 'asc');
+                    echo anchor('admin/users/index/'.$field_name.'/'.$cur_field_sort_order.'/'.$search_string.'/'.$page, $field_display);
+                    if($sort_by == $field_name && $cur_field_sort_order == 'asc') {
+                      echo '<i class="fa fa-fw fa-sort-asc"></i>';
+                    } else if($sort_by == $field_name && $cur_field_sort_order == 'desc') {
+                      echo '<i class="fa fa-fw fa-sort-desc"></i>';
+                    } else {
+                      echo '<i class="fa fa-fw fa-sort"></i>';
+                    }
+                  ?>
+                </th>
             <?php endforeach; ?>
             <th>Action</th>
           </tr>
