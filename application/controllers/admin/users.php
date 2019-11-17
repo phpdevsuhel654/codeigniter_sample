@@ -21,7 +21,7 @@ Class users extends CI_Controller {
     public function index() {
         $config = array();
         $config["base_url"] = base_url() . "admin/users/index";
-        $config["per_page"] = 2;
+        $config["per_page"] = ADMIN_RCORDS_PER_PAGE;
         
         $data['sort_cols'] = array(
             'id' => '#',

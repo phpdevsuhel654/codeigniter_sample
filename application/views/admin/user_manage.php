@@ -20,26 +20,24 @@
       <?php } ?>
       <!---- Error Message ---->
       <?php if ($this->session->flashdata('failure')) { ?>
-        <div class="alert alert-danger"><strong>Success!</strong> <?php echo $this->session->flashdata('failure'); ?></div>
+        <div class="alert alert-danger"><strong>Error!</strong> <?php echo $this->session->flashdata('failure'); ?></div>
       <?php } ?>
       <!-- Start: Filter block -->
-      <div class="row pb-3">
+      <div class="pb-3">
         <form class="form-search" method="post" action="<?php echo $form_url; ?>">
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="ace-icon fa fa-check"></i>
-            </span>
-            <input type="text" class="form-control search-query" placeholder="Type your search word" name="search" id="search" value="<?php echo (!empty($search_string)?$search_string:"");?>">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-purple btn-sm btn-search">
-                <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
-                Search
-              </button>
-            </span>
+          <div class="col-md-4">
+            <div class="input-group">
+              <input type="text" class="form-control search-query" placeholder="Type your search word" name="search" id="search" value="<?php echo (!empty($search_string)?$search_string:"");?>">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-purple btn-sm btn-search">
+                  <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                  Search
+                </button>
+              </span>
+            </div>
           </div>
         </form>
       </div>
-      
       <!-- End: Filter block -->
       <table class="table table-bordered" cellspacing="0">
         <thead>

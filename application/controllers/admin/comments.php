@@ -21,14 +21,63 @@ Class comments extends CI_Controller {
     public function index() {
         $config = array();
         $config["base_url"] = base_url() . "admin/comments/index";
-        $config["total_rows"] = $this->comment_model->record_count();
-        $config["per_page"] = 5;
-        $config["uri_segment"] = 4;
-        //echo '<pre>'; print_r($config); echo '</pre>';
-        $this->pagination->initialize($config);
+        $config["per_page"] = ADMIN_RCORDS_PER_PAGE;
         
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0; //echo $page;
-        $data["results"] = $this->comment_model->get_where_pagination($config["per_page"], $page);
+        $data['sort_cols'] = array(
+            'id' => '#',
+            'title' => 'Post Title',
+            'name' => 'Comment By Name',
+            'email' => 'Comment By Email',
+            'created_at' => 'Created At',
+        );
+
+        //$config["uri_segment"] = 6;
+        $data['sort_by'] = $this->uri->segment(4, 'id');
+        $order_by = $this->uri->segment(5, "desc");
+        if($order_by == "asc") $data['sort_order'] = "desc"; else $data['sort_order'] = "asc";
+
+        //echo $this->uri->segment(4); echo '--test---';
+        //echo $this->uri->segment(5);
+
+        $search_string = $this->input->post('search');
+        $data['search_string'] = '';
+        if(!empty($search_string)) {
+            $this->uri->segment(7, $this->uri->segment(6, 2));
+            $data['search_string'] = $this->uri->segment(6, $search_string);
+        //} elseif($this->uri->segment(6) != null && !empty($this->uri->segment(6)) && $this->uri->segment(7) != null) {
+        } elseif($this->uri->segment(6) != null && !empty($this->uri->segment(6)) && $this->uri->segment(7) != null) {
+            $data['search_string'] = urldecode($this->uri->segment(6));
+        } elseif($this->uri->segment(6) != null && !empty($this->uri->segment(6)) && !intval($this->uri->segment(6))) {
+            $data['search_string'] = urldecode($this->uri->segment(6));
+        }
+        //echo $data['search_string'].'--';
+        //set default page uri 
+        $page_uri = 6;
+        if(!empty($data['search_string'])) {
+            $page_uri = 7;
+        }
+        $config["uri_segment"] = $page_uri;
+
+        //$page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 0; //echo $page;
+        $page = ($this->uri->segment($page_uri, 1)) ? $this->uri->segment($page_uri, 1) : 0; 
+        //echo $page;
+        $data["page"] = $page;
+        //exit();
+        $config["base_url"] = base_url().'admin/comments/index/'.$data['sort_by'].'/'.$order_by.'/'.$data['search_string'];;
+        $data['form_url'] = base_url().'admin/comments/index/'.$data['sort_by'].'/'.$order_by;
+
+        $filter_data = array('search_string' => $data['search_string']);
+        //echo '<pre>'; print_r($filter_data); echo '</pre>';
+
+        //$config["total_rows"] = $this->comment_model->record_count();
+        $config["total_rows"] = $this->comment_model->record_count_full($filter_data);
+
+        //echo '<pre>'; print_r($config); echo '</pre>';
+        $this->pagination->initialize($config);        
+
+        //$data["results"] = $this->comment_model->get_where_pagination($config["per_page"], $page);
+        $data["results"] = $this->comment_model->get_where_pagination_full($config["per_page"], $page, $data['sort_by'], $data['sort_order'], $filter_data);
+
         $data["links"] = $this->pagination->create_links();
         //echo '<pre>'; print_r($data); exit();
 
