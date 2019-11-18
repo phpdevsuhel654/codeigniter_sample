@@ -21,7 +21,7 @@
           <p style="color:red; font-size:18px;" align="center"><?php echo $this->session->flashdata('error');?></p>
         <?php } ?>  
         <div class="card-body">
-            <?php echo form_open('admin/forgot_password');?>
+            <?php echo form_open('admin/login/forgot_password');?>
             <div class="form-group">
               <div class="form-label-group">
                 <?php echo form_input(['name'=>'username','id'=>'username','class'=>'form-control','autofocus'=>'autofocus','value'=>set_value('username')]);?>
@@ -32,7 +32,7 @@
    
             <?php echo form_submit(['name'=>'login','value'=>'Login','class'=>'btn btn-primary btn-block']); ?>
             <a class="d-block small" href="<?php echo site_url('home'); ?>">Back to Home page</a>
-            <a class="d-block small" href="<?php echo site_url('admin/login/forgot_password'); ?>">Forgot Password</a>
+            <a class="d-block small" href="<?php echo site_url('admin/login'); ?>">Back to Login</a>
             <?php echo form_close(); ?>
      
         </div>

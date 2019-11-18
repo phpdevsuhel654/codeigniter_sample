@@ -12,8 +12,11 @@
     <div class="container">
       <div class="card card-login mx-auto mt-5">
         <div class="card-header">Admin Login</div>
+        <!---- Success Message ---->
+        <?php if ($this->session->flashdata('success')) { ?>
+          <div class="alert alert-success"><strong>Success!</strong> <?php echo $this->session->flashdata('success'); ?></div>
+        <?php } ?>
         <!---- Error Message ---->
-
         <?php if ($this->session->flashdata('error')) { ?>
           <p style="color:red; font-size:18px;" align="center"><?php echo $this->session->flashdata('error');?></p>
         <?php } ?>  
