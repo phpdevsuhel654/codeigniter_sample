@@ -39,4 +39,25 @@ Class login extends CI_Controller {
         return redirect('admin/login');
     }
 
+    /**
+     * Forgot Password action
+     */
+    public function forgot_password() {
+        $this->form_validation->set_rules('username','Username','required');
+        if($this->form_validation->run()) {
+            $username = $this->input->post('username');
+            $validate = $this->admin_login_model->validate_login_with_username($username);
+            if($validate) {
+                //$this->session->set_userdata('sess_id',$validate);
+                $this->session->set_flashdata('success', 'Your details successfully send to your email.');
+                return redirect('admin/login');
+            } else {
+                $this->session->set_flashdata('error', 'Invalid username details. Please try again with valid details');
+                redirect('admin/forgot_password');
+            }
+        } else {
+            $this->load->view('admin/forgot_password');
+        }	
+    }
+
 }
