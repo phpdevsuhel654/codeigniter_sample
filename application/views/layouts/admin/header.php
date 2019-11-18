@@ -25,9 +25,10 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
         <a class="dropdown-item" href="<?php echo site_url('admin/change_password'); ?>">Change Password</a>
-    
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="<?php echo site_url('admin/Login/logout'); ?>" >Logout</a>
+        <a class="dropdown-item" href="<?php echo site_url('admin/dashboard/update_profile'); ?>" >Update Profile</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="<?php echo site_url('admin/login/logout'); ?>" >Logout</a>
       </div>
     </li>
   </ul>

@@ -8,7 +8,7 @@ Class admin_login_model extends MY_Model {
 		$query = $this->db->where(['role_id' => '1', 'username' => $username, 'password' => md5($password)]);
 		$account = $this->db->get($this->table)->row();
 		if($account!=NULL) {
-			return $account->id;
+			return $account;
 		}
 		return NULL;
 	}
