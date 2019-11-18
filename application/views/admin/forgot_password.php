@@ -11,26 +11,22 @@
 
     <div class="container">
       <div class="card card-login mx-auto mt-5">
-        <div class="card-header">Admin Login</div>
+        <div class="card-header">Forgot Password</div>
+        <!---- Success Message ---->
+        <?php if ($this->session->flashdata('success')) { ?>
+          <div class="alert alert-success"><strong>Success!</strong> <?php echo $this->session->flashdata('success'); ?></div>
+        <?php } ?>
         <!---- Error Message ---->
-
         <?php if ($this->session->flashdata('error')) { ?>
           <p style="color:red; font-size:18px;" align="center"><?php echo $this->session->flashdata('error');?></p>
         <?php } ?>  
         <div class="card-body">
-            <?php echo form_open('admin/login');?>
+            <?php echo form_open('admin/forgot_password');?>
             <div class="form-group">
               <div class="form-label-group">
                 <?php echo form_input(['name'=>'username','id'=>'username','class'=>'form-control','autofocus'=>'autofocus','value'=>set_value('username')]);?>
                 <?php echo form_label('Enter Username', 'username'); ?>
                 <?php echo form_error('username',"<div style='color:red'>","</div>");?>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label-group">
-                <?php echo form_password(['name'=>'password','id'=>'password','class'=>'form-control','autofocus'=>'autofocus','value'=>set_value('password')]);?>
-                <?php echo form_label('Password', 'password'); ?>
-                <?php echo form_error('password',"<div style='color:red'>","</div>");?>
               </div>
             </div>
    
